@@ -29,7 +29,7 @@ const BasicLayout: FC<BasicLayoutProps> = (props) => {
       {...props}
       onPageChange={() => {
         // 如果没有登录，重定向到 login
-        if (localStorage.getItem('status') !== 'ok' && history.location.pathname !== loginPath) {
+        if (!localStorage.getItem('token') && history.location.pathname !== loginPath) {
           history.push(loginPath);
         }
       }}

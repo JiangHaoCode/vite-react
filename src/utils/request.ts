@@ -45,7 +45,21 @@ const errorHandler = (error: { response: Response }): Response => {
 /** 配置request请求时的默认参数 */
 const request = extend({
   errorHandler, // 默认错误处理
-  credentials: 'include', // 默认请求是否带上cookie
+  prefix: 'http://localhosts:4100',
+  // credentials: 'include', // 默认请求是否带上cookie
+});
+
+request.interceptors.request.use((url, options) => {
+  const newOptions = { ...options };
+  const token = localStorage.getItem('token');
+  if (token) {
+    // @ts-ignore
+    newOptions.headers['Authorization'] = `Bearer ${token}`;
+  }
+  return {
+    url,
+    options: newOptions,
+  };
 });
 
 export default request;

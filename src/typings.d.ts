@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 declare module 'slash2';
 declare module 'antd-theme-webpack-plugin';
 

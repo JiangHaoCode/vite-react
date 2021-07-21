@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, FC } from 'react';
 import { useConcent } from 'concent';
 import { Redirect, useLocation } from '@vitjs/runtime';
 import { stringify } from 'querystring';
 
 import PageLoading from '@/components/PageLoading';
 
-const SecurityLayout: React.FC = ({ children }) => {
+const SecurityLayout: FC = ({ children }) => {
   const { state: me, connectedState, dispatch } = useConcent({
     module: 'me',
     connect: { loading: ['me/fetchMe'] },
@@ -15,7 +15,7 @@ const SecurityLayout: React.FC = ({ children }) => {
 
   // You can replace it to your authentication rule (such as check token exists)
   // 你可以把它替换成你自己的登录认证规则（比如判断 token 是否存在）
-  const isLogin = me && !!me.email;
+  const isLogin = me && !!me.username;
   const queryString = stringify({
     redirect: window.location.href,
   });
@@ -24,7 +24,7 @@ const SecurityLayout: React.FC = ({ children }) => {
     dispatch('fetchMe');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  // console.log(!isLogin && location.pathname !== '/user/login')
   if (!isLogin || fetchMeLoading) {
     return <PageLoading />;
   }

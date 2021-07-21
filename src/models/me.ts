@@ -3,15 +3,14 @@ import { defineModule } from 'concent';
 import { queryMe } from '@/services/me';
 
 export interface Me {
-  address?: string;
-  avatar?: string;
-  email?: string;
-  name?: string;
-  position?: string;
+  exp?: number;
+  iss?: string;
+  password?: string;
+  username?: string;
 }
 
 const Model = defineModule({
-  state: { address: '', avatar: '', email: '', name: '', position: '' } as Me,
+  state: { exp: 0, iss: '', password: '', username: '' } as Me,
 
   reducer: {
     fetchMe: async () => {

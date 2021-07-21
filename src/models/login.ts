@@ -1,5 +1,6 @@
 import { message } from 'antd';
 import { defineModule } from 'concent';
+// @ts-ignore
 import { history } from '@vitjs/runtime';
 import { stringify } from 'querystring';
 
@@ -16,9 +17,9 @@ const module = defineModule({
     login: async (payload: any, moduleState, actionCtx) => {
       const response = await fakeAccountLogin(payload);
       actionCtx.dispatch(module.reducer.changeLoginStatus, response);
-
-      if (response.status === 'ok') {
-        localStorage.setItem('status', 'ok');
+      console.log(window)
+      if (response.code === 200) {
+        localStorage.setItem('token', response.data.token);
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         message.success('🎉 🎉 🎉  登录成功！');
@@ -28,7 +29,9 @@ const module = defineModule({
           const redirectUrlParams = new URL(redirect);
           if (redirectUrlParams.origin === urlParams.origin) {
             redirect = redirect.substr(urlParams.origin.length);
+            // @ts-ignore
             if (window.routerBase !== '/') {
+              // @ts-ignore
               redirect = redirect.replace(window.routerBase, '/');
             }
             if (redirect.match(/^\/.*#/)) {

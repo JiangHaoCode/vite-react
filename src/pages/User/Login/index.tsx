@@ -1,13 +1,14 @@
-import { useState, FC } from 'react';
-import { Alert, message, Tabs } from 'antd';
+import { useState, FC, useEffect } from 'react';
+import { Alert, Tabs } from 'antd';
 import {
   // AlipayCircleOutlined,
   LockOutlined,
-  MailOutlined,
-  MobileOutlined,
+  // MailOutlined,
+  // MobileOutlined,
   // TaobaoCircleOutlined,
   UserOutlined,
   // WeiboCircleOutlined,
+  SafetyOutlined
 } from '@ant-design/icons';
 import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 
@@ -32,13 +33,24 @@ const LoginMessage: FC<{
 
 const Login: FC = () => {
   const { state, connectedState, mr } = useModuleWithConnect('login', ['loading']);
-
   const submitting = connectedState.loading['login/login'];
   const [type, setType] = useState<string>('account');
+  const [captcha, setCaptcha] = useState<string>('');
+
+  useEffect(() => {
+    getFakeCaptcha().then(res => {
+      setCaptcha(res.data.picPath)
+    })
+  }, []);
 
   const handleSubmit = (values: LoginParamsType) => {
     mr.login({ ...values, type });
   };
+
+  // useEffect(() => {
+  //
+  //   setCaptcha(response.data.picPath)
+  // }, [])
 
   return (
     <div className={styles.main}>
@@ -63,7 +75,7 @@ const Login: FC = () => {
       >
         <Tabs activeKey={type} onChange={setType}>
           <Tabs.TabPane key='account' tab='账户密码登录' />
-          <Tabs.TabPane key='mobile' tab='手机号登录' />
+          {/* <Tabs.TabPane key='mobile' tab='手机号登录' /> */}
         </Tabs>
 
         {state.status === 'error' && state.type === 'account' && !submitting && (
@@ -72,12 +84,12 @@ const Login: FC = () => {
         {type === 'account' && (
           <>
             <ProFormText
-              name='userName'
+              name='username'
               fieldProps={{
                 size: 'large',
                 prefix: <UserOutlined className={styles.prefixIcon} />,
               }}
-              placeholder='用户名: admin or user'
+              placeholder='用户名'
               rules={[
                 {
                   required: true,
@@ -91,7 +103,7 @@ const Login: FC = () => {
                 size: 'large',
                 prefix: <LockOutlined className={styles.prefixIcon} />,
               }}
-              placeholder='密码: vite-react'
+              placeholder='密码'
               rules={[
                 {
                   required: true,
@@ -99,61 +111,31 @@ const Login: FC = () => {
                 },
               ]}
             />
-          </>
-        )}
-
-        {state.status === 'error' && state.type === 'mobile' && !submitting && (
-          <LoginMessage content='验证码错误' />
-        )}
-        {type === 'mobile' && (
-          <>
-            <ProFormText
-              fieldProps={{
-                size: 'large',
-                prefix: <MobileOutlined className={styles.prefixIcon} />,
-              }}
-              name='mobile'
-              placeholder='手机号'
-              rules={[
-                {
-                  required: true,
-                  message: '请输入手机号！',
-                },
-                {
-                  pattern: /^1\d{10}$/,
-                  message: '手机号格式错误！',
-                },
-              ]}
-            />
             <ProFormCaptcha
-              fieldProps={{
-                size: 'large',
-                prefix: <MailOutlined className={styles.prefixIcon} />,
-              }}
-              captchaProps={{
-                size: 'large',
-              }}
-              placeholder='请输入验证码'
-              captchaTextRender={(timing, count) => {
-                if (timing) {
-                  return `${count} '获取验证码'`;
-                }
-                return '获取验证码';
-              }}
-              name='captcha'
-              rules={[
-                {
-                  required: true,
-                  message: '请输入验证码！',
-                },
-              ]}
-              onGetCaptcha={async (mobile) => {
-                const result = await getFakeCaptcha(mobile);
-                if (result === false) {
-                  return;
-                }
-                message.success('获取验证码成功！验证码为：1234');
-              }}
+                fieldProps={{
+                  size: 'large',
+                  prefix: <SafetyOutlined className={styles.prefixIcon} />,
+                }}
+                captchaProps={{
+                  size: 'large',
+                }}
+                placeholder='请输入验证码'
+                captchaTextRender={() => {
+                  return <img style={{width: 150}} src={captcha} alt="" />;
+                }}
+                name='captcha'
+                countDown={0.5}
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入验证码！',
+                  },
+                ]}
+                onGetCaptcha={async () => {
+                  const result = await getFakeCaptcha();
+                  setCaptcha(result.data.picPath)
+                  // message.success('获取验证码成功！验证码为：1234');
+                }}
             />
           </>
         )}
