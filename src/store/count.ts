@@ -23,10 +23,10 @@ const useStore = defineStore({
     }
   },
   // 是否持久化数据
-  persist: {
-    key: "user",
-    storage: "localStorage", // 'localStorage' | 'sessionStorage' 默认使用localStorage
-  },
+  // persist: {
+  //   key: "user",
+  //   storage: "localStorage", // 'localStorage' | 'sessionStorage' 默认使用localStorage
+  // },
   // deet: true,
 });
 
