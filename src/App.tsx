@@ -9,12 +9,12 @@ const App: React.FC<{}> = () => {
   const items: TabsProps["items"] = [
     {
       key: "1",
-      label: `Tab 1`,
+      label: `index`,
       children: `Content of Tab Pane 1`,
     },
     {
       key: "2",
-      label: `Tab 2`,
+      label: `About`,
       children: `Content of Tab Pane 2`,
     },
   ];
