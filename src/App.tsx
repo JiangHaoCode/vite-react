@@ -2,20 +2,18 @@ import { useState } from "react";
 import { ConfigProvider, DatePicker, Button } from "antd";
 import type { DatePickerProps } from "antd";
 import zhCN from "antd/locale/zh_CN";
-import { useStore } from "./store/count.ts";
+import { useStore } from './store/count.ts';
 
 type DateType = Parameters<NonNullable<DatePickerProps["onChange"]>>[0];
 
 function App() {
   const store = useStore();
   const [date, setDate] = useState<DateType>(null);
-
   function handleChange(value: DateType) {
     console.log("[handleChange]", value);
     console.log(store.count);
     setDate(value);
   }
-
   return (
     <>
       <div>
