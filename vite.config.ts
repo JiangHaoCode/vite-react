@@ -21,7 +21,7 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 8090,
     cors: true, // 允许跨域
-    // proxy: {}, 代理
+    proxy: {}, // 代理,
   },
 
   build: {
