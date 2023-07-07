@@ -19,7 +19,22 @@ export default defineConfig({
   ],
   server: {
     host: "0.0.0.0",
+    port: 8090,
+    cors: true, // 允许跨域
     // proxy: {}, 代理
+  },
+
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: `[name].[hash].js`,
+        chunkFileNames: `[name].[hash].js`,
+        // css文件名
+        assetFileNames: `[name].[hash].[ext]`,
+        // 比如你想构建出来的css为dist/index.css，那么你可以这样
+        //  assetFileNames: `index.[ext]`
+      },
+    },
   },
 
   css: {
@@ -30,7 +45,7 @@ export default defineConfig({
           // 更改主题在这里
           "primary-color": "#52c41a",
           "link-color": "#1DA57A",
-          "border-radius-base": "2px",
+          "border-radius-base": "2vw",
         },
         javascriptEnabled: true,
       },

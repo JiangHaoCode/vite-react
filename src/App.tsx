@@ -28,10 +28,17 @@ const App: React.FC<{}> = () => {
       navigate("/about");
     }
   };
+  // let _tmp_webstorm_ = styles;
+  // const { logo as string } = styles;
   return (
     <div className="App">
-      <h1>Welcome to React Router!</h1>
-      <Tabs defaultActiveKey="1" items={items} onChange={onChange}></Tabs>
+      <h1 className="logo">Welcome to React Router!</h1>
+      <Tabs
+        defaultActiveKey="1"
+        centered
+        items={items}
+        onChange={onChange}
+      ></Tabs>
       <Outlet></Outlet>
     </div>
   );
