@@ -20,7 +20,7 @@ const useStore = defineStore({
     reset() {
       this.count = 1;
       this.user = "hello";
-    }
+    },
   },
   // 是否持久化数据
   // persist: {

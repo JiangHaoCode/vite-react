@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { DatePickerProps } from "antd";
 import { Button, ConfigProvider, DatePicker } from "antd";
 import zhCN from "antd/locale/zh_CN";
-import { useStore } from "@/store/count.ts";
+import { useStore } from "@/store/count";
 
 type DateType = Parameters<NonNullable<DatePickerProps["onChange"]>>[0];
 
