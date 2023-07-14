@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import pxtovw from "postcss-px-to-viewport";
 import path from "path";
-import { AntdResolve, createStyleImportPlugin } from "vite-plugin-style-import";
+// import { AntdResolve, createStyleImportPlugin } from "vite-plugin-style-import";
 // import vitePluginImp from 'vite-plugin-imp'
 
 // https://vitejs.dev/config/
