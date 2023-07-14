@@ -3,6 +3,7 @@ import type { DatePickerProps } from "antd";
 import { Button, ConfigProvider, DatePicker } from "antd";
 import zhCN from "antd/locale/zh_CN";
 import { useStore } from "@/store/count";
+import dayjs from "dayjs";
 
 type DateType = Parameters<NonNullable<DatePickerProps["onChange"]>>[0];
 
@@ -12,6 +13,7 @@ function Welcome() {
 
   function handleChange(value: DateType) {
     console.log("[handleChange]", value);
+    console.log(dayjs.isDayjs(value));
     console.log(store.count);
     setDate(value);
   }

@@ -1,8 +1,9 @@
-import {defineConfig} from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import pxtovw from "postcss-px-to-viewport";
 import path from "path";
-import {AntdResolve, createStyleImportPlugin} from "vite-plugin-style-import";
+import { AntdResolve, createStyleImportPlugin } from "vite-plugin-style-import";
+// import vitePluginImp from 'vite-plugin-imp'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,9 +14,9 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    createStyleImportPlugin({
-      resolves: [AntdResolve()],
-    }),
+    // createStyleImportPlugin({
+    //   resolves: [AntdResolve()],
+    // }),
   ],
   server: {
     host: "0.0.0.0",
@@ -41,12 +42,12 @@ export default defineConfig({
     preprocessorOptions: {
       // 配置less
       less: {
-        modifyVars: {
-          // 更改主题在这里
-          "primary-color": "#52c41a",
-          "link-color": "#1DA57A",
-          "border-radius-base": "2vw",
-        },
+        // modifyVars: {
+        //   // 更改主题在这里
+        //   "primary-color": "#52c41a",
+        //   "link-color": "#1DA57A",
+        //   "border-radius-base": "2vw",
+        // },
         javascriptEnabled: true,
       },
     },
