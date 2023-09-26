@@ -63,6 +63,7 @@ const App: React.FC = () => {
               padding: 24,
               textAlign: "center",
               background: colorBgContainer,
+              height: "100%",
             }}
           >
             <Outlet></Outlet>
@@ -71,10 +72,6 @@ const App: React.FC = () => {
         <Footer
           style={{
             textAlign: "center",
-            position: "absolute",
-            width: "100%",
-            height: "1.5rem",
-            bottom: 0,
           }}
         >
           Ant Design ©2023 Created by Ant UED
